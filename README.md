@@ -23,6 +23,11 @@ Summary card showing most urgent active task
 Total active task count
 Date display
 
+## Screenshots
+![Login](static/screenshots/login.png)
+![Tasks](static/screenshots/tasks.png)
+![Dashboard](static/screenshots/dashboard.png)
+
 
 Coming Soon
 
@@ -104,4 +109,4 @@ structuring-you/
 │   ├── signup.html
 │   ├── dashboard.html
 │   └── tasks.html
-
+└── static/
