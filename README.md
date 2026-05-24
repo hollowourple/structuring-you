@@ -1,71 +1,140 @@
-StructuringYou 
+# StructuringYou
 
-A personal organisation web app built with Flask and MySQL.
+A personal organization web app built using Flask and MySQL to help users manage tasks, stay organized, and plan daily life.
 
--> Features
-Login/Signin
+---
 
-Enter username, email and password
-Password hashing in the MySQL DB
+# ✨ Features
 
-Tasks Module (complete)
+## 🔐 Authentication
+- User signup and login system
+- Secure password hashing using Werkzeug
+- Session-based authentication
 
-Add, edit, and delete tasks
-Star-based priority picker (1–5)
-Deadline tracking
-Archive completed tasks
-Sort by priority and deadline
-See task details popup
+---
 
-Dashboard / Overview (complete)
+## ✅ Tasks Module
+- Add, edit, and delete tasks
+- Star-based priority picker (1–5)
+- Deadline tracking
+- Archive completed tasks
+- Sort tasks by priority and deadline
+- View task details in popup modal
 
-Summary card showing most urgent active task
-Total active task count
-Date display
+---
 
-## Screenshots
+## 📊 Dashboard / Overview
+- Summary card displaying most urgent active task
+- Total active task count
+- Current date display
+
+---
+
+# 📸 Screenshots
+
 ![Login](static/screenshots/login.png)
+
 ![Tasks](static/screenshots/tasks.png)
+
 ![Dashboard](static/screenshots/dashboard.png)
 
+---
 
-Coming Soon
+# 🚧 Planned Features
 
-🍽️ Meal Planner
-🛒 Groceries (auto-generated from meals)
-💰 Finances tracker
+- 🍽️ Meal Planner
+- 🛒 Grocery List Generator
+- 💰 Finance Tracker
 
+---
 
-🛠️ Tech Stack
+# 🛠️ Tech Stack
 
-Backend: Python, Flask
-Database: MySQL (via Flask-MySQLDB)
-Frontend: HTML, CSS, JavaScript, Jinja2
-Fonts: Cinzel Decorative, IM Fell French Canon
-Auth: Session-based with Werkzeug password hashing
+## Backend
+- Python
+- Flask
 
+## Database
+- MySQL
+- Flask-MySQLDB
 
--> Running Locally
-Prerequisites
+## Frontend
+- HTML
+- CSS
+- JavaScript
+- Jinja2
 
-Python 3.x
-MySQL
-pip
+## Authentication
+- Werkzeug password hashing
+- Flask sessions
 
-Setup
-bash# Clone the repo
+## Fonts
+- Cinzel Decorative
+- IM Fell French Canon
+
+---
+
+# 🚀 Running Locally
+
+## Prerequisites
+
+Make sure you have installed:
+
+- Python 3.x
+- MySQL
+- pip
+
+---
+
+## 1. Clone the Repository
+
+```bash
 git clone https://github.com/yourusername/structuring-you.git
 cd structuring-you
+```
 
-# Create and activate virtual environment
+---
+
+## 2. Create Virtual Environment
+
+```bash
 python -m venv venv
-venv\Scripts\activate  # Windows
+```
 
-# Install dependencies
+### Activate Environment
+
+#### Windows
+```bash
+venv\Scripts\activate
+```
+
+#### Mac/Linux
+```bash
+source venv/bin/activate
+```
+
+---
+
+## 3. Install Dependencies
+
+```bash
 pip install -r requirements.txt
-Database Setup
-Create a MySQL database named structuring and run the following:
-sqlCREATE TABLE users (
+```
+
+---
+
+# 🗄️ Database Setup
+
+Create a MySQL database named:
+
+```sql
+structuring
+```
+
+Then run:
+
+```sql
+CREATE TABLE users (
     user_id INT PRIMARY KEY AUTO_INCREMENT,
     user_name VARCHAR(50) UNIQUE NOT NULL,
     email VARCHAR(50) NOT NULL,
@@ -85,21 +154,45 @@ CREATE TABLE userTasks (
     createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY(userID) REFERENCES users(user_id)
 );
-Config
-Edit config.py with your MySQL credentials:
-pythonclass Config:
+```
+
+---
+
+# ⚙️ Configuration
+
+Edit `config.py` with your MySQL credentials:
+
+```python
+class Config:
     MYSQL_HOST = 'localhost'
     MYSQL_USER = 'root'
     MYSQL_PASSWORD = 'your_password'
     MYSQL_DB = 'structuring'
     MYSQL_CURSORCLASS = 'DictCursor'
     MYSQL_AUTOCOMMIT = True
-    SECRET_KEY = 'your_secret_key'
-Run
-bashpython app.py
-Visit http://127.0.0.1:5000
 
-📁 Project Structure
+    SECRET_KEY = 'your_secret_key'
+```
+
+---
+
+# ▶️ Run the App
+
+```bash
+python app.py
+```
+
+Open in browser:
+
+```text
+http://127.0.0.1:5000
+```
+
+---
+
+# 📁 Project Structure
+
+```text
 structuring-you/
 ├── app.py
 ├── config.py
@@ -110,3 +203,10 @@ structuring-you/
 │   ├── dashboard.html
 │   └── tasks.html
 └── static/
+```
+
+---
+
+# 🌙 About the Project
+
+StructuringYou was created as a personal productivity and life-management project focused on combining organization with a visually atmospheric interface. The project is still actively being developed with more modules planned in the future.
