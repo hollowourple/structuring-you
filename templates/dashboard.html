@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Overview</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=IM+Fell+French+Canon:ital@0;1&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background-color:#8e2d3b;
+    min-height:100vh;
+    font-family:"IM Fell French Canon", serif;
+}
+
+h2{
+    color:#e5f5c0;
+    text-align:left;
+    letter-spacing:2px;
+}
+.navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+}
+
+.nav-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+button {
+    background-color: #e5bca9;
+    border: 1px solid #6b7556;
+    border-radius:5px;
+    font-weight: bold;
+    color: #6b7556;
+    height: 32px;
+    padding: 0 18px;
+}
+button:hover{
+    transform:scale(1.03);
+}
+.cards {
+    margin: 30px;
+    width: 90%;
+    min-height: 420px;
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 20px;
+}
+.taskCard, .mealCard, .groCard, .finCard{
+    width: 45%;
+    min-height: 90%;
+    padding: 40px;
+    background-color: #f0c4cb;
+    text-align: center;
+}
+span{
+    font-size: 18px;
+    padding: 20px;
+}
+</style>
+</head>
+
+<body>
+    <form action="" method="post">
+        <div class="navbar">
+            <h2>Overview</h2>
+            <div class="nav-buttons">
+                
+                    <button type="submit" name="action" value="Tasks">Tasks</button>
+                    <button type="submit" name="action" value="Meals">Meals</button>
+                    <button type="submit" name="action" value="Groceries">Groceries</button>
+                    <button type="submit" name="action" value="Finances">Finances</button>
+                    <button type="submit" name="action" class="Logout" 
+                    style="background-color: #a30909; color: whitesmoke;" value="Logout">Log Out</button>
+            </div>
+        </div>
+        <div style="text-align:right; padding: 0 30px; color:#e5f5c0; font-style:italic;">
+            <span id="date"></span>
+        </div>
+
+        <div class="cards">
+            <div class="taskCard" style="display: flex;flex-direction: column; justify-content:space-between;">
+                <h1 style="color: #6b7556;">Tasks</h1>
+                <span>{{ task['taskTitle'] }}</span>
+                <span>{{ task['deadline'].strftime('%Y-%m-%d') if task['deadline'] else '-' }}</span>
+                <span style="text-align: right;">Your total active tasks are: {{ taskCt['total'] }}</span>
+            </div>
+            <div class="mealCard">
+                <h1 style="color: #6b7556;">Meals</h1>
+                <span style="font-style: italic;">Coming soon~</span>
+            </div>
+            <div class="groCard">
+                <h1 style="color: #6b7556;">Groceries</h1>
+                <span style="font-style: italic;">Coming soon~</span>
+            </div>
+            <div class="finCard">
+                <h1 style="color: #6b7556;">Finances</h1>
+                <span style="font-style: italic;">Coming soon~</span>
+            </div>
+        </div>
+    </form>
+
+<script>
+    document.getElementById('date').innerText = new Date().toLocaleDateString('en-GB', {day:'numeric', month:'long', year:'numeric'});
+</script>
+</body>
+</html>

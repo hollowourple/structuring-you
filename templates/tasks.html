@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasks</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=IM+Fell+French+Canon:ital@0;1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        .nav{
+            color: white;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px;
+            border-bottom: 1px solid #c8a588;
+        }
+
+        .nav-buttons button{
+            font-weight: bold;
+            background: #260808;
+            color: #f5f0eb;
+            border: 1px solid #c8a588;
+            border-radius: 5px;
+            padding: 8px;
+            margin: 2px;
+            height: 30px;
+            cursor: pointer;
+            transition: 0.3s ease;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .nav-buttons button:hover{
+            background: #8c5e47;
+            color: #260808;
+        }
+
+        .nav-buttons .Logout{
+            background: #8b0000;
+            color: white;
+            border: none;
+            margin-left: 20px;
+            margin-right: 30px;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        .nav-buttons .Logout:hover{
+            background: rgb(255, 1, 1);
+            color: #280000;
+        }
+
+        .hi{
+            font-family:"IM Fell French Canon", serif;
+            font-size: 1.2rem;
+            margin-left: 80px;
+        }
+
+        #openModal{
+            display: block;
+            margin: 15px 66px 20px auto;
+            background: #2f391f;
+            color: #f4e5e0;
+            border: 2px solid #728159;
+            padding: 5px 15px;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        #openModal:hover{
+            background: #728159;
+            color: #1a0a05;
+        }
+
+        .mdBtns{
+            margin: 2%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+        }
+
+        table{
+            width: 90%;
+            margin: 20px auto;
+        }
+
+        th{
+            height: 30px;
+            background-color: #260808;
+            color: #f5f0eb;
+            text-align: center;
+            letter-spacing: 1px;
+            border-bottom: 1px solid #c8a588;
+            border-right: 1px solid #c8a588;
+        }
+
+        tr{
+            color: #f5f0eb;
+            height: 40px;
+            padding: 12px 15px;
+            border-bottom: 1px solid rgba(196, 168, 130, 0.2);
+            text-align: center;
+            background-color: #8c5e47;
+        }
+        
+        tbody tr:hover{
+            background: rgba(196, 169, 130, 0.347);
+        }
+
+        #addTaskModal input, #addTaskModal textarea {
+            background: #260808;
+            border: 1px solid #c8a588;
+            color: #f5f0eb;
+            padding: 8px;
+            border-radius: 4px;
+            font-family: "IM Fell French Canon", serif;
+            width: 100%;
+        }
+
+        #addTaskModal textarea {
+            height: 80px;
+            resize: none;
+        }
+        #saveTask,#saveEdit,#archiveBtn,#deleteBtn ,#cancelComplete  {
+            background: #2f391f;
+            color: #f4e5e0;
+            border: 2px solid #728159;
+            padding: 8px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: "IM Fell French Canon", serif;
+            letter-spacing: 1px;
+            transition: 0.3s ease;
+        }
+
+        #saveTask:hover,#saveEdit:hover {
+            background: #728159;
+            color: #260808;
+        }
+        .mdBtns button {
+            padding: 8px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: "IM Fell French Canon", serif;
+            letter-spacing: 1px;
+            transition: 0.3s ease;
+        }
+
+        .mdBtns #closeModal,#closeEditModal {
+            background-color: #260808;
+            color: #c8a588;
+            border: 1px solid #c8a588;
+        }
+
+        .mdBtns #closeModal:hover,#closeEditModal:hover {
+            background: #c8a588;
+            color: #260808;
+        }
+        .priority-row{
+            display:flex;
+            align-items:center;
+            gap:10px;
+        }
+       
+        .star{
+            font-size:28px;
+            cursor:pointer;
+            color:gray;
+        }
+        .star.active{
+            color:gold;
+        }
+        body{
+            margin: 0;
+            padding: 0;
+            font-family: "IM Fell French Canon", serif;
+            background-color: #4b1912;
+            color: #c8a588;
+        }
+    </style>
+</head>
+
+<body>
+    <form action="" method="post">
+    <div class="nav">
+        <h2 style="margin-left: 20px; font-family:Cinzel Decorative;">Structure Your Tasks!</h2>
+
+        <div class="nav-buttons">
+            <button type="submit" name="action" value="Overview">Overview</button>
+            <button type="submit" name="action" value="Meals">Meals</button>
+            <button type="submit" name="action" value="Groceries">Groceries</button>
+            <button type="submit" name="action" value="Finances">Finances</button>
+            <button type="submit" name="action" value="Logout" class="Logout">Logout</button>
+        </div>
+    </div>
+
+    <p class="hi">
+        Hi {{ user }}, <br>
+        Your Task Record is:
+    </p>
+
+    <button type="button" id="openModal">Add Tasks</button>
+
+    <div id="addTaskModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7);">
+
+        <div style="background:#4b1912; margin:10% auto; padding:30px; width:400px; border-radius:10px; display: flex; flex-direction: column; justify-content: space-around; gap: 12px;">
+
+            <input type="text" placeholder="Task Title" name="taskTitle">
+            <textarea placeholder="Details (optional)" name="taskDesc"></textarea>
+            <input type="date" placeholder="Deadline" name="deadline">
+            <div class="stars">
+                <span>Priority:</span>
+                <span class="star" data-value="1">★</span>
+                <span class="star" data-value="2">★</span>
+                <span class="star" data-value="3">★</span>
+                <span class="star" data-value="4">★</span>
+                <span class="star" data-value="5">★</span>
+            </div>
+            <input type="hidden" id="priorityValue" name="priority">
+
+            <div class="mdBtns">
+                <button type="button" id="closeModal">Cancel</button>
+                <button type="submit" id="saveTask" name="action" value="saveTask">Save Task</button>
+            </div>
+
+        </div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Task</th>
+                <th>Deadline</th>
+                <th>Task Priority</th>
+                <th>Modify</th>
+                <th>See Details</th>
+                <th>Task Completed?</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for task in tasks %}
+            <tr>
+                <td>{{ task['taskTitle'] }}</td>
+                <td>{{ task['deadline'].strftime('%Y-%m-%d') if task['deadline'] else '-' }}</td>
+                <td>{{ '★' * task['priority'] }}</td>
+                <td>
+                    <button type="button" class="editBtn" 
+                        data-id="{{ task['taskID'] }}"
+                        data-title="{{ task['taskTitle'] }}"
+                        data-desc="{{ task['taskDesc'] or '' }}"
+                        data-deadline="{{ task['deadline'].strftime('%Y-%m-%d') if task['deadline'] else '' }}"
+                        data-priority="{{ task['priority'] or 1 }}"><i class="fa-solid fa-pen"></i></button>
+                </td>
+                <td>
+                    <button type="button" class="detailsBtn" data-desc="{{ task['taskDesc'] or 'No details added!' }}"><i class="fa-solid fa-eye"></i></button>
+                </td>
+                <td><input type="checkbox" class="taskComplete" data-id="{{ task['taskID'] }}"></td>
+            </tr>
+            {% endfor %}
+            <tr style="background:#1a0505; color:#8c5e47; text-align:center; font-style:italic; border-top: 2px solid #c8a588;">
+                <td colspan="6" style="padding: 8px; letter-spacing:2px;">— Archived —</td>
+            </tr>
+
+            {% for task in archived_tasks %}
+            <tr class="archived-row">
+                <td>{{ task['taskTitle'] }}</td>
+                <td>{{ task['deadline'].strftime('%Y-%m-%d') if task['deadline'] else '-' }}</td>
+                <td>{{ '★' * task['priority'] }}</td>
+                <td colspan="3">
+                    <button type="button" class="deleteArchivedBtn" data-id="{{ task['taskID'] }}">🗑️</button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div id="completeModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7);">
+        <div style="background:#4b1912; margin:20% auto; padding:30px; width:350px; border-radius:10px; display:flex; flex-direction:column; gap:15px; border:1px solid #c8a588; text-align:center;">
+            <p style="color:#c8a588; font-size:1.2rem;">Task Completed! What would you like to do?</p>
+            <input type="hidden" id="completedTaskId">
+            <button id="archiveBtn">Archive</button>
+            <button style="background-color: #8b0000; border-color: #6e0101;" id="deleteBtn">Delete Permanently</button>
+            <button style="background-color: #260808; border-color: #280000;" type="button" id="cancelComplete">Cancel</button>
+        </div>
+    </div>
+    <div id="editTaskModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7);">
+        <div style="background:#4b1912; margin:10% auto; padding:30px; width:400px; border-radius:10px; display:flex; flex-direction:column; gap:12px; border:1px solid #c8a588;">
+            <p style="color:#c8a588; font-size:1.2rem; text-align:center;">Edit Task</p>
+            <input type="text" id="editTitle" placeholder="Task Title">
+            <textarea id="editDesc" placeholder="Details (optional)"></textarea>
+            <input type="date" id="editDeadline">
+            <div class="stars" id="editStars">
+                <span>Priority:</span>
+                <span class="star" data-value="1">★</span>
+                <span class="star" data-value="2">★</span>
+                <span class="star" data-value="3">★</span>
+                <span class="star" data-value="4">★</span>
+                <span class="star" data-value="5">★</span>
+            </div>
+            <input type="hidden" id="editPriority">
+            <input type="hidden" id="editTaskId">
+            <div class="mdBtns">
+                <button type="button" id="closeEditModal">Cancel</button>
+                <button type="button" id="saveEdit">Save Changes</button>
+            </div>
+        </div>
+    </div>
+    <div id="detailsModal"style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7);">
+        <div style="background:#4b1912;margin:10% auto;padding:20px;width:350px;border-radius:10px;border:1px solid #c8a588;
+            color:#f5f0eb;">
+
+                <h3>Task Details</h3>
+
+                <p id="detailsText"></p>
+
+                <button type="button" id="closeDetails">
+                    Close
+                </button>
+
+            </div>
+        </div>
+    </form>
+
+    <script>
+        document.getElementById('openModal').onclick = function(){
+            document.getElementById('addTaskModal').style.display = 'block'
+        }
+
+        document.getElementById('closeModal').onclick = function(){
+            document.getElementById('addTaskModal').style.display = 'none'
+        }
+
+        const addStars = document.querySelectorAll('#addTaskModal .star');
+        const editStars = document.querySelectorAll('#editStars .star');
+
+        const priorityInput = document.getElementById('priorityValue');
+        const editPriorityInput = document.getElementById('editPriority');
+
+        function setStars(stars,value){
+            stars.forEach(s=>{
+                s.classList.remove('active');
+            });
+            for(let i=0;i<value;i++){
+                stars[i].classList.add('active');
+            }
+        }
+        addStars.forEach(star=>{
+           star.addEventListener('click',()=>{
+                let value=star.dataset.value;
+                priorityInput.value=value;
+                setStars(addStars,value);
+            });
+        });
+        editStars.forEach(star=>{
+            star.addEventListener('click',()=>{
+                let value=star.dataset.value;
+                editPriorityInput.value=value;
+                setStars(editStars,value);
+            });
+        });
+
+        document.querySelectorAll('.taskComplete').forEach(cb => {
+            cb.addEventListener('change',function(){
+                document.getElementById('completedTaskId').value=this.dataset.id
+                document.getElementById('completeModal').style.display='block'
+                this.checked=false
+            })
+        })
+        document.getElementById('cancelComplete').onclick=function(){
+            document.getElementById('completeModal').style.display='none'
+        }
+
+        document.getElementById('archiveBtn').onclick=function(){
+            let taskId=document.getElementById('completedTaskId').value
+            fetch('/archive_task',{
+                method:'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({task_id:taskId})
+            }).then(() => location.reload())
+            document.getElementById('completeModal').style.display = 'none'
+        }
+        document.getElementById('deleteBtn').onclick=function(){
+            let taskId=document.getElementById('completedTaskId').value
+            fetch('/delete_task',{
+                method:'POST',
+                headers: {'Content-Type':'application/json'},
+                body: JSON.stringify({task_id:taskId})
+            }).then(() => location.reload())
+            document.getElementById('completeModal').style.display='none'
+        }
+
+        document.querySelectorAll('.editBtn').forEach(btn => {
+            btn.addEventListener('click', () => {
+            let priority = btn.dataset.priority;
+            document.getElementById('editTaskId').value = btn.dataset.id;
+            document.getElementById('editTitle').value = btn.dataset.title;
+            document.getElementById('editDesc').value = btn.dataset.desc;
+            document.getElementById('editDeadline').value = btn.dataset.deadline;
+            editPriorityInput.value = priority;
+            setStars(editStars,priority);
+            document.getElementById('editTaskModal').style.display = 'block';
+            });
+        });
+
+        document.getElementById('closeEditModal').onclick = function(){
+            document.getElementById('editTaskModal').style.display = 'none'
+        }
+        document.getElementById('saveEdit').onclick = function(){
+            fetch('/edit_task', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    task_id: document.getElementById('editTaskId').value,
+                    title: document.getElementById('editTitle').value,
+                    desc: document.getElementById('editDesc').value,
+                    deadline: document.getElementById('editDeadline').value,
+                    priority: document.getElementById('editPriority').value
+                })
+            }).then(() => location.reload())
+            document.getElementById('editTaskModal').style.display = 'none'
+        }
+
+        document.querySelectorAll('.detailsBtn').forEach(btn=>{
+            btn.addEventListener('click',()=>{
+                let desc=btn.dataset.desc;
+                document.getElementById('detailsText').innerText=desc;
+                document.getElementById('detailsModal').style.display='block';
+            })
+        })
+        document.getElementById('closeDetails').onclick=function(){
+            document.getElementById('detailsModal').style.display='none';
+        }
+
+        document.querySelectorAll('.deleteArchivedBtn').forEach(btn=>{
+            btn.addEventListener('click',()=>{
+                fetch('/delete_task',{
+                    method:'POST',
+                    headers:{'Content-Type':'application/json'},
+                    body: JSON.stringify({task_id: btn.dataset.id})
+                }).then(()=> location.reload())
+            })
+        })
+    </script>
+</body>
+</html>
